@@ -1,0 +1,323 @@
+# Urdu test cases for the LexInfo BaseType values (ontolex/lexinfo#47)
+#
+# Uses morph:baseType as an object property, as proposed in ontolex/morph#72.
+# Written forms are in Urdu (Nastaliq/Arabic) script, tagged "ur", with a
+# transliteration tagged "ur-Latn".
+#
+# Where no LexInfo BaseType value fits, a local value is declared under the
+# ex: namespace and typed as lexinfo:BaseType, as ontolex/morph#72 allows
+# ("values ... can be further specified in a local ontology"). Every such
+# case is marked with "GAP" in an rdfs:comment.
+
+@prefix :        <http://example.org/urdu#> .
+@prefix ex:      <http://example.org/urdu-base-types#> .
+@prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
+@prefix morph:   <http://www.w3.org/ns/lemon/morph#> .
+@prefix lexinfo: <http://www.lexinfo.net/ontology/3.0/lexinfo#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+
+# ---------------------------------------------------------------------------
+# Local base types (candidate gaps in the LexInfo inventory)
+# ---------------------------------------------------------------------------
+
+ex:subjunctiveStem a lexinfo:BaseType ;
+    rdfs:label "subjunctive stem"@en ;
+    rdfs:comment "GAP: contracted stem of denā/lenā used in the subjunctive and the future (dūṁ, dūṁgā; lūṁ, lūṁgā). No LexInfo value covers it; futureStem is too narrow because the subjunctive uses the same stem."@en .
+
+ex:politeImperativeStem a lexinfo:BaseType ;
+    rdfs:label "polite imperative stem"@en ;
+    rdfs:comment "GAP: irregular stem used only in the polite imperative in -ie (kīj-ie, dīj-ie, līj-ie, pīj-ie)."@en .
+
+ex:possessiveStem a lexinfo:BaseType ;
+    rdfs:label "possessive stem"@en ;
+    rdfs:comment "GAP: suppletive stem of first and second person pronouns in the genitive (mer-ā, ter-ā, hamār-ā, tumhār-ā), distinct from both the direct and the oblique stem."@en .
+
+# ---------------------------------------------------------------------------
+# 1. jānā 'to go': present stem jā-, perfective stem ga- (suppletive)
+# ---------------------------------------------------------------------------
+
+:jana a ontolex:LexicalEntry ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    ontolex:canonicalForm :jana_inf ;
+    morph:baseForm :jana_prs , :jana_pfv .
+
+:jana_inf a ontolex:Form ;
+    ontolex:writtenRep "جانا"@ur , "jānā"@ur-Latn ;
+    lexinfo:verbFormMood lexinfo:infinitive .
+
+:jana_prs a ontolex:Form ;
+    ontolex:writtenRep "جا"@ur , "jā"@ur-Latn ;
+    morph:baseType lexinfo:presentStem .
+
+# Test: does perfectStem fit? The Urdu form is a perfective participle used
+# for both the simple past (vo gayā 'he went') and, with an auxiliary, the
+# present perfect (vo gayā hai). See rdfs:comment.
+:jana_pfv a ontolex:Form ;
+    ontolex:writtenRep "گ"@ur , "ga"@ur-Latn ;
+    morph:baseType lexinfo:perfectStem ;
+    rdfs:comment "Partial fit: the LexInfo definition of perfectStem refers to perfect forms (a tense), whereas this stem builds the Urdu perfective participle (an aspect), used for both simple past and perfect. Either the definition should say perfect/perfective, or a separate perfectiveStem is needed."@en .
+
+:jata a ontolex:Form ;
+    ontolex:writtenRep "جاتا"@ur , "jātā"@ur-Latn ;
+    lexinfo:aspect lexinfo:imperfective ;
+    lexinfo:gender lexinfo:masculine ;
+    lexinfo:number lexinfo:singular ;
+    morph:baseType lexinfo:presentStem .
+
+:gaya a ontolex:Form ;
+    ontolex:writtenRep "گیا"@ur , "gayā"@ur-Latn ;
+    lexinfo:aspect lexinfo:perfective ;
+    lexinfo:gender lexinfo:masculine ;
+    lexinfo:number lexinfo:singular ;
+    morph:baseType lexinfo:perfectStem .
+
+:gai a ontolex:Form ;
+    ontolex:writtenRep "گئی"@ur , "gaī"@ur-Latn ;
+    lexinfo:aspect lexinfo:perfective ;
+    lexinfo:gender lexinfo:feminine ;
+    lexinfo:number lexinfo:singular ;
+    morph:baseType lexinfo:perfectStem .
+
+:gae a ontolex:Form ;
+    ontolex:writtenRep "گئے"@ur , "gae"@ur-Latn ;
+    lexinfo:aspect lexinfo:perfective ;
+    lexinfo:gender lexinfo:masculine ;
+    lexinfo:number lexinfo:plural ;
+    morph:baseType lexinfo:perfectStem .
+
+# ---------------------------------------------------------------------------
+# 2. karnā 'to do': present stem kar-, perfective stem ki-,
+#    polite imperative stem kīj-
+# ---------------------------------------------------------------------------
+
+:karna a ontolex:LexicalEntry ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    ontolex:canonicalForm [ ontolex:writtenRep "کرنا"@ur , "karnā"@ur-Latn ] ;
+    morph:baseForm :karna_prs , :karna_pfv , :karna_pol .
+
+:karna_prs a ontolex:Form ;
+    ontolex:writtenRep "کر"@ur , "kar"@ur-Latn ;
+    morph:baseType lexinfo:presentStem .
+
+:karna_pfv a ontolex:Form ;
+    ontolex:writtenRep "ک"@ur , "ki"@ur-Latn ;
+    morph:baseType lexinfo:perfectStem .
+
+:karna_pol a ontolex:Form ;
+    ontolex:writtenRep "کیج"@ur , "kīj"@ur-Latn ;
+    morph:baseType ex:politeImperativeStem .
+
+:karta a ontolex:Form ;
+    ontolex:writtenRep "کرتا"@ur , "kartā"@ur-Latn ;
+    lexinfo:aspect lexinfo:imperfective ;
+    morph:baseType lexinfo:presentStem .
+
+:kiya a ontolex:Form ;
+    ontolex:writtenRep "کیا"@ur , "kiyā"@ur-Latn ;
+    lexinfo:aspect lexinfo:perfective ;
+    lexinfo:gender lexinfo:masculine ;
+    morph:baseType lexinfo:perfectStem .
+
+:ki a ontolex:Form ;
+    ontolex:writtenRep "کی"@ur , "kī"@ur-Latn ;
+    lexinfo:aspect lexinfo:perfective ;
+    lexinfo:gender lexinfo:feminine ;
+    morph:baseType lexinfo:perfectStem .
+
+:kijie a ontolex:Form ;
+    ontolex:writtenRep "کیجیے"@ur , "kījie"@ur-Latn ;
+    lexinfo:verbFormMood lexinfo:imperative ;
+    morph:baseType ex:politeImperativeStem .
+
+# ---------------------------------------------------------------------------
+# 3. denā 'to give': present stem de-, perfective di-, subjunctive d-,
+#    polite imperative dīj-
+# ---------------------------------------------------------------------------
+
+:dena a ontolex:LexicalEntry ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    ontolex:canonicalForm [ ontolex:writtenRep "دینا"@ur , "denā"@ur-Latn ] ;
+    morph:baseForm :dena_prs , :dena_pfv , :dena_sbjv , :dena_pol .
+
+:dena_prs a ontolex:Form ;
+    ontolex:writtenRep "دے"@ur , "de"@ur-Latn ;
+    morph:baseType lexinfo:presentStem .
+
+:dena_pfv a ontolex:Form ;
+    ontolex:writtenRep "د"@ur , "di"@ur-Latn ;
+    morph:baseType lexinfo:perfectStem .
+
+:dena_sbjv a ontolex:Form ;
+    ontolex:writtenRep "د"@ur , "d"@ur-Latn ;
+    morph:baseType ex:subjunctiveStem .
+
+:dena_pol a ontolex:Form ;
+    ontolex:writtenRep "دیج"@ur , "dīj"@ur-Latn ;
+    morph:baseType ex:politeImperativeStem .
+
+:deta a ontolex:Form ;
+    ontolex:writtenRep "دیتا"@ur , "detā"@ur-Latn ;
+    lexinfo:aspect lexinfo:imperfective ;
+    morph:baseType lexinfo:presentStem .
+
+:diya a ontolex:Form ;
+    ontolex:writtenRep "دیا"@ur , "diyā"@ur-Latn ;
+    lexinfo:aspect lexinfo:perfective ;
+    morph:baseType lexinfo:perfectStem .
+
+:dun a ontolex:Form ;
+    ontolex:writtenRep "دوں"@ur , "dūṁ"@ur-Latn ;
+    lexinfo:mood lexinfo:subjunctive ;
+    lexinfo:person lexinfo:firstPerson ;
+    lexinfo:number lexinfo:singular ;
+    morph:baseType ex:subjunctiveStem .
+
+:dunga a ontolex:Form ;
+    ontolex:writtenRep "دوں گا"@ur , "dūṁgā"@ur-Latn ;
+    lexinfo:tense lexinfo:future ;
+    lexinfo:person lexinfo:firstPerson ;
+    lexinfo:number lexinfo:singular ;
+    lexinfo:gender lexinfo:masculine ;
+    morph:baseType ex:subjunctiveStem .
+
+:dijie a ontolex:Form ;
+    ontolex:writtenRep "دیجیے"@ur , "dījie"@ur-Latn ;
+    lexinfo:verbFormMood lexinfo:imperative ;
+    morph:baseType ex:politeImperativeStem .
+
+# ---------------------------------------------------------------------------
+# 4. lenā 'to take': same pattern as denā
+# ---------------------------------------------------------------------------
+
+:lena a ontolex:LexicalEntry ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    ontolex:canonicalForm [ ontolex:writtenRep "لینا"@ur , "lenā"@ur-Latn ] .
+
+:leta a ontolex:Form ;
+    ontolex:writtenRep "لیتا"@ur , "letā"@ur-Latn ;
+    lexinfo:aspect lexinfo:imperfective ;
+    morph:baseType lexinfo:presentStem .
+
+:liya a ontolex:Form ;
+    ontolex:writtenRep "لیا"@ur , "liyā"@ur-Latn ;
+    lexinfo:aspect lexinfo:perfective ;
+    morph:baseType lexinfo:perfectStem .
+
+:lun a ontolex:Form ;
+    ontolex:writtenRep "لوں"@ur , "lūṁ"@ur-Latn ;
+    lexinfo:mood lexinfo:subjunctive ;
+    morph:baseType ex:subjunctiveStem .
+
+:lijie a ontolex:Form ;
+    ontolex:writtenRep "لیجیے"@ur , "lījie"@ur-Latn ;
+    lexinfo:verbFormMood lexinfo:imperative ;
+    morph:baseType ex:politeImperativeStem .
+
+# ---------------------------------------------------------------------------
+# 5. honā 'to be, become': present stem ho-, perfective hu-
+# ---------------------------------------------------------------------------
+
+:hona a ontolex:LexicalEntry ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    ontolex:canonicalForm [ ontolex:writtenRep "ہونا"@ur , "honā"@ur-Latn ] .
+
+:hota a ontolex:Form ;
+    ontolex:writtenRep "ہوتا"@ur , "hotā"@ur-Latn ;
+    lexinfo:aspect lexinfo:imperfective ;
+    morph:baseType lexinfo:presentStem .
+
+:hua a ontolex:Form ;
+    ontolex:writtenRep "ہوا"@ur , "huā"@ur-Latn ;
+    lexinfo:aspect lexinfo:perfective ;
+    morph:baseType lexinfo:perfectStem .
+
+# ---------------------------------------------------------------------------
+# 6. Inflection rules keyed on base type
+# ---------------------------------------------------------------------------
+
+# Perfective masculine singular: perfective stem + -yā (ga-yā, ki-yā, di-yā,
+# li-yā). honā is an exception (hu-ā), so it needs its own rule or form.
+:pfv_m_sg_rule a morph:InflectionRule ;
+    morph:example "gayā" , "kiyā" , "diyā" , "liyā" ;
+    morph:replacement [ morph:source "$" ; morph:target "yā" ] ;
+    morph:baseType lexinfo:perfectStem .
+
+# Imperfective participle: present stem + -tā (jā-tā, kar-tā, de-tā).
+:ipfv_m_sg_rule a morph:InflectionRule ;
+    morph:example "jātā" , "kartā" , "detā" ;
+    morph:replacement [ morph:source "$" ; morph:target "tā" ] ;
+    morph:baseType lexinfo:presentStem .
+
+# Polite imperative: polite imperative stem + -ie (kīj-ie, dīj-ie, līj-ie).
+:pol_imp_rule a morph:InflectionRule ;
+    morph:example "kījie" , "dījie" , "lījie" ;
+    morph:replacement [ morph:source "$" ; morph:target "ie" ] ;
+    morph:baseType ex:politeImperativeStem .
+
+# ---------------------------------------------------------------------------
+# 7. Pronouns: direct vs oblique stem, plus a separate possessive stem
+# ---------------------------------------------------------------------------
+
+# vo 'he/she/that' -> oblique us- (us ne, us ko, us kā)
+:vo a ontolex:LexicalEntry ;
+    lexinfo:partOfSpeech lexinfo:personalPronoun ;
+    ontolex:canonicalForm [ ontolex:writtenRep "وہ"@ur , "vo"@ur-Latn ; lexinfo:case lexinfo:directCase ] ;
+    morph:baseForm :vo_obl .
+
+:vo_obl a ontolex:Form ;
+    ontolex:writtenRep "اس"@ur , "us"@ur-Latn ;
+    lexinfo:case lexinfo:obliqueCase ;
+    morph:baseType lexinfo:obliqueStem .
+
+# ye 'this' -> oblique is- (is ne, is ko). Note: in unvocalised Urdu script
+# us and is are both written اس, so only the transliteration disambiguates.
+:ye a ontolex:LexicalEntry ;
+    lexinfo:partOfSpeech lexinfo:demonstrativePronoun ;
+    ontolex:canonicalForm [ ontolex:writtenRep "یہ"@ur , "ye"@ur-Latn ; lexinfo:case lexinfo:directCase ] ;
+    morph:baseForm :ye_obl .
+
+:ye_obl a ontolex:Form ;
+    ontolex:writtenRep "اس"@ur , "is"@ur-Latn ;
+    lexinfo:case lexinfo:obliqueCase ;
+    morph:baseType lexinfo:obliqueStem .
+
+# kaun 'who' -> oblique kis- (kis ne, kis ko, kis kā)
+:kaun a ontolex:LexicalEntry ;
+    lexinfo:partOfSpeech lexinfo:interrogativePronoun ;
+    ontolex:canonicalForm [ ontolex:writtenRep "کون"@ur , "kaun"@ur-Latn ; lexinfo:case lexinfo:directCase ] ;
+    morph:baseForm :kaun_obl .
+
+:kaun_obl a ontolex:Form ;
+    ontolex:writtenRep "کس"@ur , "kis"@ur-Latn ;
+    lexinfo:case lexinfo:obliqueCase ;
+    morph:baseType lexinfo:obliqueStem .
+
+# maiṁ 'I' -> oblique mujh- (mujh ko, mujhe) but genitive mer-ā, which is
+# built on neither the direct nor the oblique stem.
+:main a ontolex:LexicalEntry ;
+    lexinfo:partOfSpeech lexinfo:personalPronoun ;
+    ontolex:canonicalForm [ ontolex:writtenRep "میں"@ur , "maiṁ"@ur-Latn ; lexinfo:case lexinfo:directCase ] ;
+    morph:baseForm :main_obl , :main_poss .
+
+:main_obl a ontolex:Form ;
+    ontolex:writtenRep "مجھ"@ur , "mujh"@ur-Latn ;
+    lexinfo:case lexinfo:obliqueCase ;
+    morph:baseType lexinfo:obliqueStem .
+
+:main_poss a ontolex:Form ;
+    ontolex:writtenRep "میر"@ur , "mer"@ur-Latn ;
+    morph:baseType ex:possessiveStem .
+
+:mera a ontolex:Form ;
+    ontolex:writtenRep "میرا"@ur , "merā"@ur-Latn ;
+    lexinfo:case lexinfo:genitiveCase ;
+    lexinfo:gender lexinfo:masculine ;
+    morph:baseType ex:possessiveStem .
+
+# Contrast: noun oblique (laṛkā -> laṛke) is ordinary case inflection of the
+# same stem, so it should NOT get obliqueStem. Included as a negative case.
+:larke a ontolex:Form ;
+    ontolex:writtenRep "لڑکے"@ur , "laṛke"@ur-Latn ;
+    lexinfo:case lexinfo:obliqueCase ;
+    lexinfo:number lexinfo:singular ;
+    rdfs:comment "No base type: regular oblique inflection of laṛk-, not a separate stem."@en .
