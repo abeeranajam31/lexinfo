@@ -33,7 +33,8 @@ ex:possessiveStem a lexinfo:BaseType ;
     rdfs:comment "GAP: suppletive stem of first and second person pronouns in the genitive (mer-ā, ter-ā, hamār-ā, tumhār-ā), distinct from both the direct and the oblique stem."@en .
 
 # ---------------------------------------------------------------------------
-# 1. jānā 'to go': present stem jā-, perfective stem ga- (suppletive)
+# 1. jānā 'to go': present stem jā-; ga- (suppletive) underlies the
+#    perfective forms
 # ---------------------------------------------------------------------------
 
 :jana a ontolex:LexicalEntry ;
@@ -49,13 +50,13 @@ ex:possessiveStem a lexinfo:BaseType ;
     ontolex:writtenRep "جا"@ur , "jā"@ur-Latn ;
     morph:baseType lexinfo:presentStem .
 
-# Test: does perfectStem fit? The Urdu form is a perfective participle used
-# for both the simple past (vo gayā 'he went') and, with an auxiliary, the
-# present perfect (vo gayā hai). See rdfs:comment.
+# Test: does perfectStem fit? The stem underlying the perfective forms is
+# used both for the simple past (vo gayā 'he went') and, with an auxiliary,
+# for the present perfect (vo gayā hai). See rdfs:comment.
 :jana_pfv a ontolex:Form ;
     ontolex:writtenRep "گ"@ur , "ga"@ur-Latn ;
     morph:baseType lexinfo:perfectStem ;
-    rdfs:comment "Partial fit: the LexInfo definition of perfectStem refers to perfect forms (a tense), whereas this stem builds the Urdu perfective participle (an aspect), used for both simple past and perfect. Either the definition should say perfect/perfective, or a separate perfectiveStem is needed."@en .
+    rdfs:comment "Open question: the LexInfo definition of perfectStem refers to perfect forms, while this stem underlies Urdu perfective forms used for both the simple past and the perfect. Modelled here with perfectStem; whether that is the intended use is for the LexInfo maintainers to decide."@en .
 
 :jata a ontolex:Form ;
     ontolex:writtenRep "جاتا"@ur , "jātā"@ur-Latn ;
@@ -86,7 +87,7 @@ ex:possessiveStem a lexinfo:BaseType ;
     morph:baseType lexinfo:perfectStem .
 
 # ---------------------------------------------------------------------------
-# 2. karnā 'to do': present stem kar-, perfective stem ki-,
+# 2. karnā 'to do': present stem kar-; ki- underlies the perfective forms;
 #    polite imperative stem kīj-
 # ---------------------------------------------------------------------------
 
@@ -130,7 +131,8 @@ ex:possessiveStem a lexinfo:BaseType ;
     morph:baseType ex:politeImperativeStem .
 
 # ---------------------------------------------------------------------------
-# 3. denā 'to give': present stem de-, perfective di-, subjunctive d-,
+# 3. denā 'to give': present stem de-; di- underlies the perfective forms;
+#    subjunctive d-;
 #    polite imperative dīj-
 # ---------------------------------------------------------------------------
 
@@ -235,7 +237,7 @@ ex:possessiveStem a lexinfo:BaseType ;
 # 6. Inflection rules keyed on base type
 # ---------------------------------------------------------------------------
 
-# Perfective masculine singular: perfective stem + -yā (ga-yā, ki-yā, di-yā,
+# Perfective masculine singular: stem underlying the perfective forms + -yā (ga-yā, ki-yā, di-yā,
 # li-yā). honā is an exception (hu-ā), so it needs its own rule or form.
 :pfv_m_sg_rule a morph:InflectionRule ;
     morph:example "gayā" , "kiyā" , "diyā" , "liyā" ;
